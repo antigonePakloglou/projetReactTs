@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
-import RecettesScreen from './src/screen/RecettesScreen';
+import RecetteScreen from './src/screen/RecetteScreen';
 import HomeScreen from './src/screen/HomeScreen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Colors from './src/screen/constants/Colors';
+import Colors from './src/constants/Colors';
 import FavorisScreen from './src/screen/FavorisScreen';
 import { AntDesign } from '@expo/vector-icons';
 import AddRecetteScreen from './src/screen/AddRecetteScreen';
@@ -52,16 +52,13 @@ export default function App() {
         headerShown: false
        }}
      />
-     <Stack.Screen name="RecettesScreen" component={RecettesScreen} 
+     <Stack.Screen name="RecetteScreen" component={RecetteScreen} 
        options={{
          title: 'Quizz',
          headerShown: false,
        }}
      />
    
- 
-   
- 
    </Stack.Navigator>
  </NavigationContainer>
   );

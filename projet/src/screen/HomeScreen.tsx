@@ -1,31 +1,35 @@
 import { View, Text, Pressable, FlatList } from 'react-native'
-import React, {useState} from 'react'
-import { Card } from '@rneui/themed';
+import React, {useState, useEffect} from 'react'
+import { Card } from '@rneui/themed'
+import AppStyles from '../constants/Styles'
+import { recepies } from '../constants/Datas'
 
 
 const HomeScreen = ({navigation}: {navigation:any}) => {
     
-    const [recettes, setRecettes] = useState<Recette[]>([
+ /*    const [recettes, setRecettes] = useState<Recette[]>([
         {nom: 'Gateau', ingredients: ['Farine', 'Chocolat', 'Oeufs']},
         {nom: 'Tarte', ingredients: ['Beurre', 'Pomme', 'Sucre']},
         {nom: 'Tiramisu', ingredients: ['Cacao', 'Biscuit', 'Mascarpone']}, 
-    ])
+    ]) */
 
-    const renderRecetteItem = ({item}:{item: Recette}) => {
+    const [recettes, setRecettes] = useState(recepies.recepies);
+
+    const renderRecetteItem = ({item}:{item: any}) => {
         return(
             <Pressable onPress={()=> {
-                navigation.navigate('RecettesScreen', {
+                navigation.navigate('RecetteScreen', {
                         recette : item
                 })
             }}>
-                <View>
+                <View style={AppStyles.recettesCard}>
                 <Card >
-                    <Card.Title >{item.nom}</Card.Title>
+                    <Card.Title >{item.title}</Card.Title>
                     <Card.Divider />
-                   {/*  <Card.Image
+                    {  <Card.Image style={AppStyles.recetteImg}
                         
-                        source={{uri: item.image}}
-                    /> */}
+                        source={{uri: item.imagePath.uri}}
+                    /> } 
                      
                 </Card>
             </View>
@@ -35,7 +39,7 @@ const HomeScreen = ({navigation}: {navigation:any}) => {
     }
 
   return (
-    <View >
+    <View style={AppStyles.container}>
     <View >
           <Text >Listes des recettes</Text>
       </View>
