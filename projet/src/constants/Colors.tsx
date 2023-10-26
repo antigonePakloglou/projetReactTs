@@ -4,7 +4,9 @@ export default  {
     yellow: '#FBF189',
     textColor : 'black',
     greenBtn : '#D4F743',
-    lavande : '#A1A6FC',
-    orange : '#F8552D'
+    lavande : '#B68FF9',
+    orange : '#F8552D',
+    lightLavande : '#EFE2FC',
+    darkLavande : '#7E06F6'
 
 }
