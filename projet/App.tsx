@@ -1,14 +1,14 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import RecetteScreen from './src/screen/RecetteScreen';
 import HomeScreen from './src/screen/HomeScreen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Colors from './src/constants/Colors';
 import FavorisScreen from './src/screen/FavorisScreen';
 import { AntDesign } from '@expo/vector-icons';
 import AddRecetteScreen from './src/screen/AddRecetteScreen';
+
 
 
 
@@ -22,19 +22,19 @@ const Tabs = () => {
         tabBarActiveTintColor: 'pink',
         tabBarInactiveTintColor: 'blue',
         headerShown: false,
-        tabBarIcon: (({focused}) => <FontAwesome5 name="home" size={24} color={focused ? Colors.orange : Colors.lavande} />)
+        tabBarIcon: (({focused}) => <FontAwesome5 name="home" size={24} /* color={focused ? Colors.orange : Colors.lavande} */ />)
       }} />
       { <Tab.Screen name="Favoris" component={FavorisScreen}  options={{
         tabBarActiveTintColor: 'pink',
         tabBarInactiveTintColor: 'blue',
         headerShown: false,
-        tabBarIcon: (({focused}) => <AntDesign name="hearto" size={24} color={focused ? Colors.orange : Colors.lavande} />)
+        tabBarIcon: (({focused}) => <AntDesign name="hearto" size={24} /* color={focused ? Colors.orange : Colors.lavande} */ />)
       }} />}
        <Tab.Screen name="Add" component={AddRecetteScreen} options={{
         tabBarActiveTintColor: 'pink',
         tabBarInactiveTintColor: 'blue',
         headerShown: false,
-        tabBarIcon: (({focused}) => <AntDesign name="addfolder" size={24} color={focused ? Colors.orange : Colors.lavande} />)
+        tabBarIcon: (({focused}) => <AntDesign name="addfolder" size={24} /* color={focused ? Colors.orange : Colors.lavande}  *//>)
       }} />
     </Tab.Navigator>
   )

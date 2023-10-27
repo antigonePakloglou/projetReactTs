@@ -1,8 +1,6 @@
 import { View, Text, Image } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import AppStyles from '../constants/Styles'
-import Card from '@rneui/themed/dist/Card';
-import App from '../../App';
 
 
 
@@ -33,15 +31,6 @@ const RecetteScreen = ({route, navigation}:{route:any, navigation:any}) => {
               source={{uri: recette.imagePath.uri}}
         />
     <Text style={AppStyles.recetteDescription}>{recette.description}</Text>
-      {/*  <Card >
-        <Card.Title >{recette.title}</Card.Title>
-        <Card.Divider />
-        {  <Card.Image style={AppStyles.recetteImg}
-              source={{uri: recette.imagePath.uri}}
-        /> } 
-         <Card.Divider />
-               <Text>{recette.description}</Text>
-      </Card>  */}
     </View>
   )
 }
