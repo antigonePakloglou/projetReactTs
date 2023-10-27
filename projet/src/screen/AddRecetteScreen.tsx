@@ -1,4 +1,4 @@
-import { View, Text, Button } from 'react-native'
+import { View, Text, Button, TextInput } from 'react-native'
 import React, { useState } from 'react'
 import { Input } from '@rneui/themed'
 import AppStyles from '../constants/Styles'
@@ -16,25 +16,27 @@ const AddRecetteScreen = () => {
 
   return (
     <View style={AppStyles.recetteCard}>
-    <Text>Titre</Text>
+    <Text style={AppStyles.inputTitre}>Titre</Text>
     <Input
       onChangeText={text => onChangeTitre(text)}
       value={titre}/>
-    <Text>Description</Text>
-    <Input
+    <Text style={AppStyles.inputTitre}>Description</Text>
+    <TextInput
+    multiline={true}
+    numberOfLines={10}
+    style={AppStyles.inputDescription}/>
+    {/* <Input
       onChangeText={text => onChangeDescription(text)}
-      value={description}/>
-      <Text>Catégorie</Text>
+      value={description} style={AppStyles.inputTextDescription}/> */}
+      <Text style={AppStyles.inputTitre}>Catégorie</Text>
     <Input
       onChangeText={text => onChangeCategory(text)}
       value={category}/>
-    <Text>Image</Text>
+    <Text style={AppStyles.inputTitre}>Image</Text>
+    <View style={AppStyles.btnAjouter}>
+      <Button onPress={()=> addRecette()} title="Ajouter" color={Colors.lavande} />
+    </View>
     
-    <Button
-onPress={()=> addRecette()}
-title="Ajouter"
-color={Colors.lavande}
-/>
    
 
    </View>

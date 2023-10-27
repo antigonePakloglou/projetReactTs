@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity } from 'react-native'
+import { View, Text, Image, TouchableOpacity, Button } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import AppStyles from '../constants/Styles'
 import { AntDesign } from '@expo/vector-icons'
@@ -48,8 +48,11 @@ const RecetteScreen = ({route, navigation}:{route:any, navigation:any}) => {
     <TouchableOpacity style={AppStyles.favoris} onPress={()=> onPressFav()}> 
       <AntDesign name={iconName} size={36} color={Colors.lavande } /> 
     </TouchableOpacity>  
-    <Text style={AppStyles.favorisText}>Ajouter au favoris</Text>   
-    </View>
+    <Text style={AppStyles.favorisText}>Ajouter au favoris</Text> 
+    <View style={AppStyles.accueilBtn}>
+      <Button title="Accueil" color={Colors.lavande}  onPress={()=>navigation.navigate('Home')}></Button>
+    </View>  
+  </View>
   )
 }
 

@@ -30,6 +30,7 @@ const Tabs = () => {
         headerShown: false,
         tabBarIcon: (({focused}) => <AntDesign name="hearto" size={24} color={focused ? Colors.orange : Colors.lavande} />)
       }} />}
+       
        <Tab.Screen name="Add" component={AddRecetteScreen} options={{
         tabBarActiveTintColor: 'pink',
         tabBarInactiveTintColor: 'blue',
@@ -54,7 +55,7 @@ export default function App() {
      />
      <Stack.Screen name="RecetteScreen" component={RecetteScreen} 
        options={{
-         title: 'Quizz',
+         title: 'Recette',
          headerShown: false,
        }}
      />

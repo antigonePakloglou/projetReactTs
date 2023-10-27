@@ -69,6 +69,7 @@ export default StyleSheet.create({
     },
     recetteDescription: {
         textAlign: 'center',
+        fontSize: 12,
         padding: 5
         
     },
@@ -78,5 +79,22 @@ export default StyleSheet.create({
     favorisText: {
         fontSize: 8,
         fontStyle: 'italic'
+    },
+    accueilBtn : {
+        marginTop: 20
+    },
+    /* Ajout recette */
+    btnAjouter: {
+        marginTop: 10
+    },
+    inputDescription: {
+        width:280, 
+        textAlignVertical: 'top',
+        backgroundColor: Colors.lightLavande2,
+        borderRadius: 40
+    }, 
+    inputTitre : {
+        fontSize: 16,
+        fontWeight: '800'
     }
 })
