@@ -2,7 +2,7 @@ type Recette = {
     id: number
     title: string
     category: string
-    isFav: false
+    isFav: boolean
     description: string
     imagePath: {
         uri: string

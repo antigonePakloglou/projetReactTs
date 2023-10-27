@@ -71,5 +71,12 @@ export default StyleSheet.create({
         textAlign: 'center',
         padding: 5
         
+    },
+    favoris: {
+        marginTop: 20
+    },
+    favorisText: {
+        fontSize: 8,
+        fontStyle: 'italic'
     }
 })

@@ -1,6 +1,5 @@
 import { View, Text, Pressable, FlatList, Image } from 'react-native'
-import React, {useState, useEffect} from 'react'
-import { Card } from '@rneui/themed'
+import React, {useState} from 'react'
 import AppStyles from '../constants/Styles'
 import { recepies } from '../constants/Datas'
 
