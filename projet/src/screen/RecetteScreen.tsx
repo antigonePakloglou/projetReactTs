@@ -12,21 +12,18 @@ const RecetteScreen = ({route, navigation}:{route:any, navigation:any}) => {
   //récupéraration des recettes grace au context
   const {modifyRecettesGlobal, recettesGlobal} = useContext(RecettesContext) as unknown as RecetteContextType;
   const [recette, setRecette] = useState<Recette>(recettesGlobal[0]);
+  const [loading, setLoading] = useState(true);
 
   const [iconName, setIconName] = useState("hearto");
   useEffect(() => {
     //recupere parametres
     if(route.params.recette){
         setRecette(route.params.recette);
-        console.log('RECETTE :>> ', recette);
-        if(recette.isFav == true){
-          setIconName("heart")
-        } else {  
-          setIconName("hearto")
-        }
+        changeIconFav();
+        setLoading(false);
     }
-}, []);
-    
+}, [recette]);
+
   //click ajout favoris
   const onPressFav = ()=> {
     recette.isFav = recette.isFav ? false : true;
@@ -34,11 +31,7 @@ const RecetteScreen = ({route, navigation}:{route:any, navigation:any}) => {
     //modifier la liste des recettes global 
     findRecetteInGlobal(recette);
     //gestion affichage de l'icon
-    if(recette.isFav == true){
-      setIconName("heart")
-    } else {  
-      setIconName("hearto")
-    }
+    changeIconFav();
   }
 
   const findRecetteInGlobal = (recetteToUpdate:any)=> {
@@ -48,6 +41,21 @@ const RecetteScreen = ({route, navigation}:{route:any, navigation:any}) => {
     //remplacement par recette avec modif favoris
     recettesGlobal.splice(recetteIndex, 1, recetteToUpdate);
     modifyRecettesGlobal(recettesGlobal);
+    console.log('CHANGE GLOBAL :>> ');
+  }
+
+  const changeIconFav = ()=> {
+    if(recette.isFav == true){
+      setIconName("heart")
+    } else {  
+      setIconName("hearto")
+    }
+  }
+
+  if(loading){
+    return(
+       <Text>Loading</Text>
+    )
   }
 
   return (

@@ -1,17 +1,23 @@
 import { View, Text, Pressable, FlatList, Image } from 'react-native'
-import React, {useContext, useEffect, useState} from 'react'
+import React, {useContext, useState} from 'react'
 import AppStyles from '../constants/Styles'
-import { recepies } from '../constants/Datas'
 import { RecettesContext } from '../../App'
+import { useFocusEffect } from '@react-navigation/native'
 
 
 
-const HomeScreen = ({route, navigation}: {route: any, navigation:any}) => {
+const HomeScreen = ({navigation}: {navigation:any}) => {
 
     //récupéraration des recettes grace au context
     const {recettesGlobal} = useContext(RecettesContext) as unknown as RecetteContextType;
-    const [recettes, setRecettes] = useState<Recette[]>(recettesGlobal);
+    const [recettes, setRecettes] = useState<Recette[]>([]);
 
+    useFocusEffect(() => {
+      //recupere nouvelles recettes au retour sur cette page
+      setRecettes(recettesGlobal);
+  });
+
+  
     const renderRecetteItem = ({item}:{item: any}) => {
         return(
             <Pressable onPress={()=> {
