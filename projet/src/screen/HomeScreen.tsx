@@ -1,13 +1,16 @@
 import { View, Text, Pressable, FlatList, Image } from 'react-native'
-import React, {useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import AppStyles from '../constants/Styles'
 import { recepies } from '../constants/Datas'
+import { RecettesContext } from '../../App'
 
 
-const HomeScreen = ({navigation}: {navigation:any}) => {
 
+const HomeScreen = ({route, navigation}: {route: any, navigation:any}) => {
 
-    const [recettes, setRecettes] = useState(recepies.recepies);
+    //récupéraration des recettes grace au context
+    const {recettesGlobal} = useContext(RecettesContext) as unknown as RecetteContextType;
+    const [recettes, setRecettes] = useState<Recette[]>(recettesGlobal);
 
     const renderRecetteItem = ({item}:{item: any}) => {
         return(

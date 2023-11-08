@@ -14,3 +14,8 @@ enum Categorie {
     ITALIAN = "italian food",
     MEXICAN = "mexican food",
   }
+
+interface RecetteContextType {
+    recettesGlobal: Recette[];
+    modifyRecettesGlobal: ([]) => void;
+} 

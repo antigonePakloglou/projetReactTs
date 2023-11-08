@@ -9,16 +9,19 @@ import Colors from './src/constants/Colors';
 import FavorisScreen from './src/screen/FavorisScreen';
 import { AntDesign } from '@expo/vector-icons';
 import AddRecetteScreen from './src/screen/AddRecetteScreen';
+import { recepies } from './src/constants/Datas';
+import { createContext, useState } from 'react';
 
-
-
+//création d'un context
+export const RecettesContext = createContext(null);
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeScreen} options={{
+      <Tab.Screen name="Home" component={HomeScreen}
+       options={{
         tabBarActiveTintColor: 'pink',
         tabBarInactiveTintColor: 'blue',
         headerShown: false,
@@ -43,25 +46,32 @@ const Tabs = () => {
 
 
 export default function App() {
+  //affectation des valeurs de bases des recettes
+  const [recettesGlobal, setRecettesGlobal] = useState(recepies.recepies);
+  //reaffectation de recettes apres modification dans les composants enfants
+  const modifyRecettesGlobal = (recettes:any) => {
+      setRecettesGlobal(recettes)
+  }
+  
   return (
-    <NavigationContainer>
-    {/* initialRouteName : route par defaut  */}
-   <Stack.Navigator initialRouteName='Home' >
-
-   <Stack.Screen name="Tabs" component={Tabs} 
-       options={{
-        headerShown: false
-       }}
-     />
-     <Stack.Screen name="RecetteScreen" component={RecetteScreen} 
-       options={{
-         title: 'Recette',
-         headerShown: false,
-       }}
-     />
-   
-   </Stack.Navigator>
- </NavigationContainer>
+    <RecettesContext.Provider value={{recettesGlobal, modifyRecettesGlobal}}>
+      <NavigationContainer>
+      {/* initialRouteName : route par defaut  */}
+        <Stack.Navigator initialRouteName='Home' >
+          <Stack.Screen name="Tabs" component={Tabs} 
+              options={{
+                headerShown: false
+              }}
+            />
+            <Stack.Screen name="RecetteScreen" component={RecetteScreen} 
+              options={{
+                title: 'Recette',
+                headerShown: false,
+              }}
+            />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </RecettesContext.Provider>
   );
 }
 

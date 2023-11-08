@@ -1,18 +1,21 @@
 import { View, Text, Pressable, FlatList, Image } from 'react-native'
-import React, {useEffect, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import AppStyles from '../constants/Styles'
 import { recepies } from '../constants/Datas'
+import { RecettesContext } from '../../App'
 
 
 const FavorisScreen = ({navigation}: {navigation:any}) => {
 
-
-    const [recettes, setRecettes] = useState(recepies.recepies);
-    useEffect(() => {
-      const filterRecettes = recettes.filter(recette=> recette.isFav == true );
-      setRecettes(filterRecettes);
+  //récupéraration des recettes grace au context
+  const {recettesGlobal} = useContext(RecettesContext) as unknown as RecetteContextType;
+  const [recettes, setRecettes] = useState<Recette[]>(recettesGlobal);
+  useEffect(() => {
+    const filterRecettes = recettes.filter(recette=> recette.isFav == true );
+    setRecettes(filterRecettes);
+    console.log('Recette Glob filter  :>> ', filterRecettes );
      
-    }, []);
+  }, []);
 
     const renderRecetteItem = ({item}:{item: any}) => {
         return(

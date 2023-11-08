@@ -1,28 +1,29 @@
 import { View, Text, Image, TouchableOpacity, Button } from 'react-native'
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import AppStyles from '../constants/Styles'
 import { AntDesign } from '@expo/vector-icons'
 import Colors from '../constants/Colors'
+import { RecettesContext } from '../../App'
 
 
 
 const RecetteScreen = ({route, navigation}:{route:any, navigation:any}) => {
 
-  const [recette, setRecette] = useState<Recette>({id: 1,
-    title: "",
-    category: "",
-    isFav: true,
-    description:
-    "",
-    imagePath: {
-    uri: "https://www.auxdelicesdupalais.net/wp-content/uploads/2020/06/pancakes-fluffy-2.jpg",
-    }});
+  //récupéraration des recettes grace au context
+  const {modifyRecettesGlobal, recettesGlobal} = useContext(RecettesContext) as unknown as RecetteContextType;
+  const [recette, setRecette] = useState<Recette>(recettesGlobal[0]);
 
   const [iconName, setIconName] = useState("hearto");
   useEffect(() => {
     //recupere parametres
     if(route.params.recette){
         setRecette(route.params.recette);
+        console.log('RECETTE :>> ', recette);
+        if(recette.isFav == true){
+          setIconName("heart")
+        } else {  
+          setIconName("hearto")
+        }
     }
 }, []);
     
@@ -30,12 +31,23 @@ const RecetteScreen = ({route, navigation}:{route:any, navigation:any}) => {
   const onPressFav = ()=> {
     recette.isFav = recette.isFav ? false : true;
     setRecette(recette);
+    //modifier la liste des recettes global 
+    findRecetteInGlobal(recette);
     //gestion affichage de l'icon
     if(recette.isFav == true){
       setIconName("heart")
     } else {  
       setIconName("hearto")
     }
+  }
+
+  const findRecetteInGlobal = (recetteToUpdate:any)=> {
+    const isRecette = (recette:any) => recette.title == recetteToUpdate.title;
+    //get index of recette actuelle
+    const recetteIndex = recettesGlobal.findIndex(isRecette);
+    //remplacement par recette avec modif favoris
+    recettesGlobal.splice(recetteIndex, 1, recetteToUpdate);
+    modifyRecettesGlobal(recettesGlobal);
   }
 
   return (
