@@ -1,28 +1,31 @@
 import { View, Text, Button, TextInput, Image } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Input } from '@rneui/themed'
 import AppStyles from '../constants/Styles'
 import Colors from '../constants/Colors'
 import * as ImagePicker from 'expo-image-picker';
+import { RecettesContext } from '../../App'
+import { useFocusEffect } from '@react-navigation/native'
 
 const AddRecetteScreen = ({route, navigation} : {route: any, navigation: any}) => {
+  //récupéraration des recettes grace au context
+  const {modifyRecettesGlobal, recettesGlobal} = useContext(RecettesContext) as unknown as RecetteContextType;
+  const [recettes, setRecettes] = useState<Recette[]>([]);
+
   const [titre, onChangeTitre] = useState<string>("");
   const [description, onChangeDescription] = useState<string>("");
   const [category, onChangeCategory] = useState<string>("");
-  const [imagePath, onChangeImagePath] = useState<string>();
-  const [recetteAdd, setRecetteAdd] = useState<Recette>();
-  //const [recettes, setRecettes] = useState();
-
- /*  useEffect(() => {
-    //recupere parametres
-    if(route.params.recettes){
-      setRecettes(route.params.recettes);
-    }
-}, []); */
-
   const [image, setImage] = useState<string>("");
+  const [imagePath, setImagePath] = useState<string>("");
+  const [recetteAdd, setRecetteAdd] = useState<Recette | any>();
 
+  
+   useFocusEffect(() => {
+    //recupere nouvelles recettes au retour sur cette page
+    setRecettes(recettesGlobal);
+});
 
+  
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -33,26 +36,37 @@ const AddRecetteScreen = ({route, navigation} : {route: any, navigation: any}) =
     });
     console.log(result);
 
-     if (!result.canceled) {
-      setImage(result.assets[0].uri);
+    if(result.assets !== null){
+      console.log('object :>> ', result.assets[0].uri);
+      //recup hash de image voulus
+      let img = result.assets[0].uri;
+      setImage(img);
+      setImagePath(img.substring(img.lastIndexOf("/")+1));
     }
+  
+    
   };
+
   const addRecette = ()=> {
-    console.log('object :>> ', titre);
     //création d'une recette
-    setRecetteAdd ({id: 9,
+    const newRecette : Recette = {
+      id: 9,
       title: titre,
       category: category,
-      isFav: true,
+      isFav: false,
       description: description,
       imagePath: {
-      uri: image,
-      }});
-      console.log('recetteAdd :>> ', recetteAdd);
+      uri: imagePath,
+      }
+    }
+    setRecetteAdd (newRecette);
+    console.log('ADD :>> ', recetteAdd);
+    //ajout de la recette a la liste globale
+    recettes.push(recetteAdd)
+    modifyRecettesGlobal(recettes);
+    console.log('ALL :>> ', recettes);
       //retour affichage toutes les recettes
-      navigation.navigate('HomeScreen', {
-        recetteAdd : recetteAdd
-    })
+      navigation.navigate('Home');
   }
 
   return (
