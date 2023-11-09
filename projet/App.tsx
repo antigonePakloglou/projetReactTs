@@ -5,11 +5,11 @@ import RecetteScreen from './src/screen/RecetteScreen';
 import HomeScreen from './src/screen/HomeScreen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Colors from './src/constants/Colors';
+import Colors from './app/constants/Colors';
 import FavorisScreen from './src/screen/FavorisScreen';
 import { AntDesign } from '@expo/vector-icons';
 import AddRecetteScreen from './src/screen/AddRecetteScreen';
-import { recepies } from './src/constants/Datas';
+import { recepies } from './app/constants/Datas';
 import { createContext, useState } from 'react';
 
 //création d'un context
