@@ -14,21 +14,14 @@ const FavorisScreen = ({navigation}: {navigation:any}) => {
   const [loading, setLoading] = useState(true);
 
     useFocusEffect(() => {
-    console.log('test ------------------------- ');
     //recupere nouvelles recettes au retour sur cette page
-    console.log('rcettesGlobal :>> ', recettesGlobal);
     setRecettes(recettesGlobal);
-    
-    
-    console.log('recettes :>> ', recettes);
-    
 });  
  
   useEffect(() => {
     console.log("MODIFER")
     getFavorisRecettes();
     setLoading(false);
-    
   }, [recettes]);
 
 
