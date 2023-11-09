@@ -1,7 +1,6 @@
 import { View, Text, Pressable, FlatList, Image } from 'react-native'
 import React, {useContext, useEffect, useState} from 'react'
 import AppStyles from '../constants/Styles'
-import { recepies } from '../constants/Datas'
 import { RecettesContext } from '../../App'
 
 
@@ -9,13 +8,22 @@ const FavorisScreen = ({navigation}: {navigation:any}) => {
 
   //récupéraration des recettes grace au context
   const {recettesGlobal} = useContext(RecettesContext) as unknown as RecetteContextType;
-  const [recettes, setRecettes] = useState<Recette[]>(recettesGlobal);
+  const [recettesFavoris, setRecettesFavoris] = useState<Recette[]>([]);
+  const [loading, setLoading] = useState(true);
+
+   
   useEffect(() => {
-    const filterRecettes = recettes.filter(recette=> recette.isFav == true );
-    setRecettes(filterRecettes);
-    console.log('Recette Glob filter  :>> ', filterRecettes );
-     
-  }, []);
+    getFavorisRecettes();
+    setLoading(false);
+  }, [recettesGlobal]);
+
+
+  const getFavorisRecettes = ()=> {
+    //récup recettes qui sont favorites dans liste globale
+    const filterRecettes = recettesGlobal.filter((recette:any) => recette.isFav == true);
+    setRecettesFavoris([...filterRecettes]); 
+  }
+
 
     const renderRecetteItem = ({item}:{item: any}) => {
         return(
@@ -34,14 +42,18 @@ const FavorisScreen = ({navigation}: {navigation:any}) => {
             </Pressable>
         )
     }
-
+    if(loading){
+      return(
+         <Text>Loading</Text>
+      )
+    }
   return (
     <View style={[AppStyles.container, {backgroundColor: '#F2EAFA'}]}>
     <View style={AppStyles.titleRecetteView}>
           <Text style={AppStyles.titleRecette}>Listes des favoris</Text>
       </View>
     <FlatList
-      data={recettes}
+      data={recettesFavoris}
       renderItem={renderRecetteItem}
      numColumns={2}
     />

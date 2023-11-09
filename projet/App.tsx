@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import RecetteScreen from './src/screen/RecetteScreen';
@@ -48,13 +48,21 @@ const Tabs = () => {
 export default function App() {
   //affectation des valeurs de bases des recettes
   const [recettesGlobal, setRecettesGlobal] = useState(recepies.recepies);
-  //reaffectation de recettes apres modification dans les composants enfants
-  const modifyRecettesGlobal = (recettes:any) => {
-      setRecettesGlobal(recettes)
+  //modification de la recette ajouté et/ou supprimé des favoris
+  const modifyRecettesGlobal = (recettes:any, recetteToModifie:any) => {
+    setRecettesGlobal(recettes => {
+      let allRecettes = recettes.filter(item => item.title !== recetteToModifie.title)
+      console.log('allRecettes :>> ', recetteToModifie);
+      return [...allRecettes, recetteToModifie]
+    })
+}
+  //ajout de la recette créer aux restes des recettes
+  const addToRecettesGlobal = (recettes:any, recetteAdd:any) => {
+      setRecettesGlobal(recettes => [...recettes, recetteAdd])
   }
   
   return (
-    <RecettesContext.Provider value={{recettesGlobal, modifyRecettesGlobal}}>
+    <RecettesContext.Provider value={{recettesGlobal, modifyRecettesGlobal, addToRecettesGlobal}}>
       <NavigationContainer>
       {/* initialRouteName : route par defaut  */}
         <Stack.Navigator initialRouteName='Home' >

@@ -53,7 +53,8 @@ export default StyleSheet.create({
         borderWidth: 2,
         borderColor: Colors.lavande,
         borderRadius: 50,
-        padding: 20
+        padding: 20,
+        position: 'absolute'
     },
     recetteImg: {
         width: 250,
@@ -91,10 +92,20 @@ export default StyleSheet.create({
         width:280, 
         textAlignVertical: 'top',
         backgroundColor: Colors.lightLavande2,
-        borderRadius: 40
+        borderRadius: 40,
+        padding: 10
     }, 
     inputTitre : {
         fontSize: 16,
         fontWeight: '800'
-    }
+    },
+    btnPhoto: {
+        height: 60,
+        width: 60,
+       
+        borderRadius: 30,
+        justifyContent : 'center',
+        alignItems : 'center',
+      
+    },
 })

@@ -1,26 +1,22 @@
-import { View, Text, Button, TextInput, Image } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { View, Text, Button, TextInput, Image, Pressable } from 'react-native'
+import React, { useContext, useState } from 'react'
 import { Input } from '@rneui/themed'
 import AppStyles from '../constants/Styles'
 import Colors from '../constants/Colors'
 import * as ImagePicker from 'expo-image-picker';
+import { RecettesContext } from '../../App'
+import { useFocusEffect } from '@react-navigation/native'
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-const AddRecetteScreen = ({route, navigation} : {route: any, navigation: any}) => {
+const AddRecetteScreen = ({navigation} : {navigation: any}) => {
+  //récupéraration des recettes grace au context
+  const {addToRecettesGlobal, recettesGlobal} = useContext(RecettesContext) as unknown as RecetteContextType;
+
   const [titre, onChangeTitre] = useState<string>("");
   const [description, onChangeDescription] = useState<string>("");
   const [category, onChangeCategory] = useState<string>("");
-  const [imagePath, onChangeImagePath] = useState<string>();
-  const [recetteAdd, setRecetteAdd] = useState<Recette>();
-  //const [recettes, setRecettes] = useState();
-
- /*  useEffect(() => {
-    //recupere parametres
-    if(route.params.recettes){
-      setRecettes(route.params.recettes);
-    }
-}, []); */
-
   const [image, setImage] = useState<string>("");
+  const [imagePath, setImagePath] = useState<string>("");
 
 
   const pickImage = async () => {
@@ -31,28 +27,36 @@ const AddRecetteScreen = ({route, navigation} : {route: any, navigation: any}) =
       aspect: [4, 3],
       quality: 1,
     });
-    console.log(result);
+    //console.log(result);
 
-     if (!result.canceled) {
-      setImage(result.assets[0].uri);
+    if(result.assets !== null){
+      console.log('object :>> ', result.assets[0].uri);
+      //recup hash de image voulus
+      let img = result.assets[0].uri;
+      setImage(img);
+      setImagePath(img.substring(img.lastIndexOf("/")+1));
     }
+  
+    
   };
+
   const addRecette = ()=> {
-    console.log('object :>> ', titre);
     //création d'une recette
-    setRecetteAdd ({id: 9,
+    const newRecette : Recette = {
+      //a changer 
+      id: 9,
       title: titre,
       category: category,
-      isFav: true,
+      isFav: false,
       description: description,
       imagePath: {
-      uri: image,
-      }});
-      console.log('recetteAdd :>> ', recetteAdd);
-      //retour affichage toutes les recettes
-      navigation.navigate('HomeScreen', {
-        recetteAdd : recetteAdd
-    })
+      uri: imagePath,
+      }
+    }
+    //ajout a la liste globale
+    addToRecettesGlobal(recettesGlobal, newRecette);
+    //retour affichage toutes les recettes
+    navigation.navigate('Home');
   }
 
   return (
@@ -75,11 +79,12 @@ const AddRecetteScreen = ({route, navigation} : {route: any, navigation: any}) =
       value={category}/>
     <Text style={AppStyles.inputTitre}>Image</Text>
     
-      <Button title="Ajouter une photo" onPress={pickImage} />
-      {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
-    
+    <Pressable style={AppStyles.btnPhoto} onPress={pickImage}>
+    <MaterialCommunityIcons name="file-image-plus" size={24} color={Colors.lavande} />
+    </Pressable>
+      {image && <Image source={{ uri: image }} style={{ width: 100, height: 100 }} />}
     <View style={AppStyles.btnAjouter}>
-      <Button onPress={()=> addRecette()} title="Ajouter" color={Colors.lavande} />
+      <Button onPress={()=> addRecette()} title="Ajouter recette" color={Colors.lavande} />
     </View>
     
    

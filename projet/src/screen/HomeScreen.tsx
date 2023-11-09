@@ -1,17 +1,14 @@
 import { View, Text, Pressable, FlatList, Image } from 'react-native'
-import React, {useContext, useEffect, useState} from 'react'
+import React, {useContext} from 'react'
 import AppStyles from '../constants/Styles'
-import { recepies } from '../constants/Datas'
 import { RecettesContext } from '../../App'
 
 
-
-const HomeScreen = ({route, navigation}: {route: any, navigation:any}) => {
+const HomeScreen = ({navigation}: {navigation:any}) => {
 
     //récupéraration des recettes grace au context
     const {recettesGlobal} = useContext(RecettesContext) as unknown as RecetteContextType;
-    const [recettes, setRecettes] = useState<Recette[]>(recettesGlobal);
-
+    
     const renderRecetteItem = ({item}:{item: any}) => {
         return(
             <Pressable onPress={()=> {
@@ -36,7 +33,7 @@ const HomeScreen = ({route, navigation}: {route: any, navigation:any}) => {
           <Text style={AppStyles.titleRecette}>Listes des recettes</Text>
       </View>
     <FlatList
-      data={recettes}
+      data={recettesGlobal}
       renderItem={renderRecetteItem}
      numColumns={2}
     />
