@@ -2,7 +2,6 @@ import { View, Text, Pressable, FlatList, Image } from 'react-native'
 import React, {useContext, useEffect, useState} from 'react'
 import AppStyles from '../constants/Styles'
 import { RecettesContext } from '../../App'
-import { useFocusEffect } from '@react-navigation/native'
 
 
 const FavorisScreen = ({navigation}: {navigation:any}) => {
@@ -12,15 +11,8 @@ const FavorisScreen = ({navigation}: {navigation:any}) => {
   const [recettesFavoris, setRecettesFavoris] = useState<Recette[]>([]);
   const [loading, setLoading] = useState(true);
 
-     useFocusEffect(() => {
-    //recupere nouvelles recettes au retour sur cette page
-    console.log('"ici" :>> ');
-    //const filterRecettes = recettesGlobal.filter((recette:any) => recette.isFav == true);
-    
-});  
-  
+   
   useEffect(() => {
-    console.log("MODIFER")
     getFavorisRecettes();
     setLoading(false);
   }, [recettesGlobal]);
@@ -29,10 +21,7 @@ const FavorisScreen = ({navigation}: {navigation:any}) => {
   const getFavorisRecettes = ()=> {
     //récup recettes qui sont favorites dans liste globale
     const filterRecettes = recettesGlobal.filter((recette:any) => recette.isFav == true);
-    console.log('FILTER OK :>> ', filterRecettes);
-    setRecettesFavoris([...recettesFavoris, ...filterRecettes]);
-    console.log('Recettes VIDE :>> ', recettesFavoris);
-    
+    setRecettesFavoris([...filterRecettes]); 
   }
 
 

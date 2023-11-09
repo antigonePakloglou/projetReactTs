@@ -28,23 +28,15 @@ const RecetteScreen = ({route, navigation}:{route:any, navigation:any}) => {
   const onPressFav = ()=> {
     recette.isFav = recette.isFav ? false : true;
     setRecette(recette => recette);
+    //setRecette()
     console.log('RECETTE MODIF :>> ', recette);
     //modifier la liste des recettes global 
-    findRecetteInGlobal(recette);
+    modifyRecettesGlobal(recettesGlobal, recette);
     //gestion affichage de l'icon
     changeIconFav();
   }
 
-  const findRecetteInGlobal = (recetteToUpdate:any)=> {
-    const isRecette = (recette:any) => recette.title == recetteToUpdate.title;
-    //get index of recette actuelle
-    const recetteIndex = recettesGlobal.findIndex(isRecette);
-    //remplacement par recette avec modif favoris
-    recettesGlobal.splice(recetteIndex, 1, recetteToUpdate);
-    modifyRecettesGlobal(recettesGlobal);
-    console.log('CHANGE GLOBAL :>> ', recettesGlobal);
-  }
-
+ 
   const changeIconFav = ()=> {
     if(recette.isFav == true){
       setIconName("heart")
