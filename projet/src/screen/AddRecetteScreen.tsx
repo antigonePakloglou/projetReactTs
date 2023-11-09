@@ -10,23 +10,15 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const AddRecetteScreen = ({navigation} : {navigation: any}) => {
   //récupéraration des recettes grace au context
-  const {modifyRecettesGlobal, recettesGlobal} = useContext(RecettesContext) as unknown as RecetteContextType;
-  const [recettes, setRecettes] = useState<Recette[]>([]);
+  const {addToRecettesGlobal, recettesGlobal} = useContext(RecettesContext) as unknown as RecetteContextType;
 
   const [titre, onChangeTitre] = useState<string>("");
   const [description, onChangeDescription] = useState<string>("");
   const [category, onChangeCategory] = useState<string>("");
   const [image, setImage] = useState<string>("");
   const [imagePath, setImagePath] = useState<string>("");
-  const [recetteAdd, setRecetteAdd] = useState<Recette | any>();
 
-  
-   useFocusEffect(() => {
-    //recupere nouvelles recettes au retour sur cette page
-    setRecettes(recettesGlobal);
-});
 
-  
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -35,7 +27,7 @@ const AddRecetteScreen = ({navigation} : {navigation: any}) => {
       aspect: [4, 3],
       quality: 1,
     });
-    console.log(result);
+    //console.log(result);
 
     if(result.assets !== null){
       console.log('object :>> ', result.assets[0].uri);
@@ -61,10 +53,8 @@ const AddRecetteScreen = ({navigation} : {navigation: any}) => {
       uri: imagePath,
       }
     }
-    setRecetteAdd (newRecette); 
-    //ajout de la recette a la liste globale
-    recettes.push(newRecette)
-    modifyRecettesGlobal(recettes);
+    //ajout a la liste globale
+    addToRecettesGlobal(recettesGlobal, newRecette);
     //retour affichage toutes les recettes
     navigation.navigate('Home');
   }

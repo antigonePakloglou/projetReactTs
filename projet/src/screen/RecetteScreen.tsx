@@ -27,7 +27,8 @@ const RecetteScreen = ({route, navigation}:{route:any, navigation:any}) => {
   //click ajout favoris
   const onPressFav = ()=> {
     recette.isFav = recette.isFav ? false : true;
-    setRecette(recette);
+    setRecette(recette => recette);
+    console.log('RECETTE MODIF :>> ', recette);
     //modifier la liste des recettes global 
     findRecetteInGlobal(recette);
     //gestion affichage de l'icon
@@ -41,7 +42,7 @@ const RecetteScreen = ({route, navigation}:{route:any, navigation:any}) => {
     //remplacement par recette avec modif favoris
     recettesGlobal.splice(recetteIndex, 1, recetteToUpdate);
     modifyRecettesGlobal(recettesGlobal);
-    console.log('CHANGE GLOBAL :>> ');
+    console.log('CHANGE GLOBAL :>> ', recettesGlobal);
   }
 
   const changeIconFav = ()=> {

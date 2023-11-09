@@ -17,5 +17,6 @@ enum Categorie {
 
 interface RecetteContextType {
     recettesGlobal: Recette[];
+    addToRecettesGlobal: (recettesGlobal:any, recetteAdd:any) => void;
     modifyRecettesGlobal: ([]) => void;
 } 

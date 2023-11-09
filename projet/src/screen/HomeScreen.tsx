@@ -42,7 +42,7 @@ const HomeScreen = ({navigation}: {navigation:any}) => {
           <Text style={AppStyles.titleRecette}>Listes des recettes</Text>
       </View>
     <FlatList
-      data={recettes}
+      data={recettesGlobal}
       renderItem={renderRecetteItem}
      numColumns={2}
     />

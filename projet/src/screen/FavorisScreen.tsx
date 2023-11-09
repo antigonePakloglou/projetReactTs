@@ -9,27 +9,30 @@ const FavorisScreen = ({navigation}: {navigation:any}) => {
 
   //récupéraration des recettes grace au context
   const {recettesGlobal} = useContext(RecettesContext) as unknown as RecetteContextType;
-  const [recettes, setRecettes] = useState<Recette[]>([]);
   const [recettesFavoris, setRecettesFavoris] = useState<Recette[]>([]);
   const [loading, setLoading] = useState(true);
 
-    useFocusEffect(() => {
+     useFocusEffect(() => {
     //recupere nouvelles recettes au retour sur cette page
-    setRecettes(recettesGlobal);
+    console.log('"ici" :>> ');
+    //const filterRecettes = recettesGlobal.filter((recette:any) => recette.isFav == true);
+    
 });  
- 
+  
   useEffect(() => {
     console.log("MODIFER")
     getFavorisRecettes();
     setLoading(false);
-  }, [recettes]);
+  }, [recettesGlobal]);
 
 
   const getFavorisRecettes = ()=> {
     //récup recettes qui sont favorites dans liste globale
-    const filterRecettes = recettes.filter((recette:any) => recette.isFav == true);
-    console.log('FILTER :>> ', filterRecettes);
-    setRecettesFavoris(filterRecettes);
+    const filterRecettes = recettesGlobal.filter((recette:any) => recette.isFav == true);
+    console.log('FILTER OK :>> ', filterRecettes);
+    setRecettesFavoris([...recettesFavoris, ...filterRecettes]);
+    console.log('Recettes VIDE :>> ', recettesFavoris);
+    
   }
 
 

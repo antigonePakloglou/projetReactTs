@@ -50,11 +50,14 @@ export default function App() {
   const [recettesGlobal, setRecettesGlobal] = useState(recepies.recepies);
   //reaffectation de recettes apres modification dans les composants enfants
   const modifyRecettesGlobal = (recettes:any) => {
-      setRecettesGlobal(recettes)
+    setRecettesGlobal(recettes)
+}
+  const addToRecettesGlobal = (recettes:any, recetteAdd:any) => {
+      setRecettesGlobal(recettes => [...recettes, recetteAdd])
   }
   
   return (
-    <RecettesContext.Provider value={{recettesGlobal, modifyRecettesGlobal}}>
+    <RecettesContext.Provider value={{recettesGlobal, modifyRecettesGlobal, addToRecettesGlobal}}>
       <NavigationContainer>
       {/* initialRouteName : route par defaut  */}
         <Stack.Navigator initialRouteName='Home' >
